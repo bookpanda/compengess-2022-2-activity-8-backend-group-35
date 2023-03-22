@@ -49,7 +49,7 @@ const getCompEngEssCid = async () => {
     .catch((error) => console.error(error));
 
   const cv_cid = data.data.student.find(
-    (std) => std.course_no === "2110215"
+    (std) => std.course_no === "2110221"
   ).cv_cid;
 
   document.getElementById("ces-cid-value").innerHTML = cv_cid;
@@ -62,9 +62,31 @@ const createCompEngEssAssignmentTable = async () => {
   table_body.innerHTML = "";
   const cv_cid = document.getElementById("ces-cid-value").innerHTML;
 
-  console.log(
-    "This function should fetch 'get course assignments' route from backend server and show assignments in the table."
-  );
+  const options = {
+    method: "GET",
+    credentials: "include",
+  };
+
+  const data = await fetch(
+    `http://${backendIPAddress}/courseville/get_course_assignments/${cv_cid}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+
+  const table = document.getElementById("main-table-body");
+
+  data.data.map((ass) => {
+    table.innerHTML += `<tr> 
+      <td>
+        ${ass.itemid}
+      </td> 
+      <td>
+        ${ass.title}
+      </td>
+    </tr>
+    `;
+  });
 };
 
 const logout = async () => {
