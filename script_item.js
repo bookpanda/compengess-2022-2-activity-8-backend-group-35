@@ -1,5 +1,5 @@
 // TODO #4.0: Change this IP address to EC2 instance public IP address when you are going to deploy this web application
-const backendIPAddress = "10.201.236.173:3000";
+const backendIPAddress = "44.214.22.80:3000";
 
 let itemsData;
 
